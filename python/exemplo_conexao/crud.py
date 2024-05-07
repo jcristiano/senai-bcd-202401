@@ -24,17 +24,20 @@ def criar_novo_aluno(conexao):
     cursor.close()
 
 if __name__ == "__main__":
-    conexao = MyConnector.connect(
-        host='localhost',
-        user='myapp',
-        password='myapp',
-        database='mydbpython',
-        port=3306,
-    )
+    try:
+        conexao = MyConnector.connect(
+            host='localhost',
+            user='myapp',
+            password='myapp',
+            database='mydbpython',
+            port=3306,
+        )
 
-    if conexao.is_connected:
-        print('Conexao estabelecida')
+        if conexao.is_connected:
+            print('Conexao estabelecida')
 
-        criar_tabela_aluno(conexao)
-        criar_novo_aluno(conexao)
-        conexao.close()
+            criar_tabela_aluno(conexao)
+            criar_novo_aluno(conexao)
+            conexao.close()
+    except MyConnector.Error as err:
+        print("Erro ao conectar ao MySQL: {0}".format(err))
